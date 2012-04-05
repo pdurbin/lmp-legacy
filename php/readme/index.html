@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>LastMinutePlans Readme</title>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<h2>LastMinutePlans Readme</h2>
+
+<p></p>
+
+<p>LastMinutePlans is driven by the following files:</p>
+<ul>
+<li><b>common.php</b>: common functions</li>
+<li><b>config.php</b>: configuration</li>
+<li><b>index.php</b>: main LastMinutePlans page</li>
+<li><b>login.php</b>: log user in</li>
+<li><b>register.php</b>: allow user to register</li>
+<li><b>locations.php</b>: set up your locations</li>
+<li><b>subscriptions.php</b>: view and delete subscriptions</li>
+<li><b>subscribers.php</b>: see who is subscribed to your locations</li>
+<li><b>subscribe.php</b>: subscribe to someone's location</li>
+<li><b>logout.php</b>: log user out</li>
+<li><b>process_tweets.php</b>: send out direct messages (called via cron)</li>
+<li><b>styles.css</b>: cascading style sheet</li>
+</ul>
+
+<p>LastMinutePlans has been an opportunity for me to explore some technologies I hadn't before such as the Twitter API, SQLite, and PHP's PDO.  In the end I think I've come up with a service that's potentially useful: a way to notify your friends about your plans at the last minute.</p>
+
+<p>I wanted to keep everything about the service fairly straightforward, so users simply define keywords to indicate their locations (i.e. "zoo", "aquarium", etc.) and include a keyword in their tweet to @lastminuteplans, which then forwards the tweet to everyone who has subscribed to that location from that user.</p>
+
+<p>I decided to send and receive tweets from users as direct messages rather than @replies because I wanted people to have a bit more privacy. Because direct messages between Twitter accounts require users to follow each other, I decided to make following the @lastminuteplans account a prerequisite for registering for LastMinutePlans.  This way, I can be sure the person registering is using their own Twitter username rather than someone else's, which should reduce potential mischief. It also meant that I don't have to confirm their Twitter account by asking for their Twitter credentials or implementing OAuth (which I did investigate but seemed non-trivial).</p>
+
+<p>In processing tweets, I store all the direct messages in an SQLite database and mark them as "sent" after they have been processed.  I could instead delete the tweets as soon as they have been processed and also delete the corresponding direct message received by the @lastminuteplans Twitter account, but I like having a record of the messages and could always do some cleanup of both direct messages and the SQLite database if traffic were to become a problem</p>
+
+<p>Finally, I experimented with (lightweight) logging from PHP for the first time and have been pleased to find it easy to find out what is going on within my application.</p>
+
+<p>Please test this site with Safari and Firefox.</p>
+
+</body>
+</html>

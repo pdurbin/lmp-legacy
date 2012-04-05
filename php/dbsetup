@@ -1,0 +1,69 @@
+#!/usr/bin/php
+<?php
+// http://www.phpro.org/tutorials/Introduction-to-PHP-PDO.html#4.2
+try {
+	$dbh = new PDO("sqlite:lmp.db");
+	/*** echo a message saying we have connected ***/
+	echo 'Connected to database' . "\n";
+
+	$sql = "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT UNIQUE, pass TEXT);"; $dbh->query($sql);
+	// this will autoincrement: http://www.sqlite.org/autoinc.html
+	#$sql = "INSERT INTO 'users' VALUES(1,'philipdurbin','" . sha1('foo') . "');"; $dbh->query($sql);
+	$sql = "INSERT INTO 'users' (username, pass) VALUES('philipdurbin', '" . sha1('foo') . "');"; $dbh->query($sql);
+	#$sql = "INSERT INTO 'users' (username, pass) VALUES('tobias7777',   '" . sha1('bar') . "');"; $dbh->query($sql);
+	#$sql = "INSERT INTO 'users' (username, pass) VALUES('todd8888',     '" . sha1('baz') . "');"; $dbh->query($sql);
+	#$sql = "INSERT INTO 'users' (username, pass) VALUES('chris9999',    '" . sha1('bum') . "');"; $dbh->query($sql);
+	$sql = "INSERT INTO 'users' (username, pass) VALUES('phildurbin', '" . sha1('foo') . "');"; $dbh->query($sql);
+
+	$sql = "CREATE TABLE locations (id INTEGER PRIMARY KEY, owner TEXT, name TEXT, description TEXT);"; $dbh->query($sql);
+	$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(1, 'philipdurbin', 'zoo', 'Franklin Park Zoo');"; $dbh->query($sql);
+	$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(2, 'philipdurbin', 'rose', 'Minot Rose Garden Park');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(3, 'philipdurbin', 'childrens museum', 'Boston Childrens Museum');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(4, 'tobias7777', 'fireplace', 'restaurant at Washington Square');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(5, 'tobias7777', 'griggs', 'Griggs Park');"; $dbh->query($sql);
+	$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(6, 'philipdurbin', 'devo', 'Devotion School Playground');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(7, 'tobias7777', 'munich', 'Germany');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(8, 'chris9999', 'skyline', 'Skyline Park');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(9, 'tobias7777', 'lab', 'Childrens Hospital');"; $dbh->query($sql);
+	$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(10, 'philipdurbin', 'library', 'Library');"; $dbh->query($sql);
+	$sql = "INSERT INTO  locations (id, owner, name, description) VALUES(11, 'phildurbin', 'garden', '200 foot garden');"; $dbh->query($sql);
+
+	$sql = "CREATE TABLE subscriptions (id INTEGER PRIMARY KEY, locationid INTEGER, subscriber TEST, enabled BOOLEAN);"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(1,'tobias7777', 'true');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(3,'tobias7777', 'true');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(1,'todd8888', 'true');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(2,'todd8888', 'true');"; $dbh->query($sql);
+	//$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(5,'todd8888', 'true');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(4,'philipdurbin', 'true');"; $dbh->query($sql);
+	#$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(5,'philipdurbin', 'true');"; $dbh->query($sql);
+	$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(10,'phildurbin', 'true');"; $dbh->query($sql);
+	$sql = "INSERT INTO  subscriptions (locationid, subscriber, enabled) VALUES(11,'philipdurbin', 'true');"; $dbh->query($sql);
+
+	//$sql = "CREATE TABLE tweets (id INTEGER PRIMARY KEY, sender TEXT, tweetid INTEGER, tweet TEXT, sent INTEGER);"; $dbh->query($sql);
+	//$sql = "INSERT INTO  tweets (sender, tweetid, tweet, sent) VALUES('philipdurbin', 1234567, 'heading to the rose garden', 0);"; $dbh->query($sql);
+	$sql = "CREATE TABLE tweets (tweetid INTEGER PRIMARY KEY, sender TEXT, tweet TEXT, sent INTEGER);"; $dbh->query($sql);
+	//$sql = "INSERT INTO  tweets (tweetid, sender, tweet, sent) VALUES(1234567, 'philipdurbin', 'heading to the rose garden', 0);"; $dbh->query($sql);
+	// insert all these and mark as sent so we don't process them again!
+	#$sql = "INSERT INTO tweets VALUES(630662366,'philipdurbin','heading to the zoo when it opens',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(632860192,'philipdurbin','bringing the girls to the library',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(649526666,'philipdurbin','going to the library',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(649549776,'philipdurbin','thinking about going to the library soon',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(649583384,'philipdurbin','again the library i guess',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(659251826,'philipdurbin','going for a run up corey hill in an hour',1)"; $dbh->query($sql);
+	#$sql = "INSERT INTO tweets VALUES(659300038,'philipdurbin','maybe i''ll bring the kids to the zoo tomorrow',1)"; $dbh->query($sql);
+	//$sql = ""; $dbh->query($sql);
+
+	/*** The SQL SELECT statement ***/
+	$sql = "SELECT * FROM users";
+	foreach ($dbh->query($sql) as $row)
+	{
+		print $row['username'] .' - '. $row['pass'] . "\n";
+	}
+
+	/*** close the database connection ***/
+	$dbh = null;
+}
+catch(PDOException $e)
+{
+	echo $e->getMessage();
+}

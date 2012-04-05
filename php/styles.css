@@ -1,0 +1,23 @@
+/**
+ * Computer Science E-75
+ * Philip Durbin
+ */
+p.errors {
+    color: red;
+    font-weight: bold;
+}
+
+p.success {
+    font-weight: bold;
+}
+
+/* span idea from http://www.webmasterworld.com/forum83/337.htm */
+.smaller {
+    font-size:65%
+}
+
+/*img.header {*/
+#title_image {
+    float:left;
+    padding-right:8px;
+}
