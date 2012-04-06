@@ -36,6 +36,11 @@ if (isset($_POST["user"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) ) {
     if ($_POST["pass"] != $_POST["pass2"]) {
         $errors[] = "Please enter the same password twice";
     }
+
+/*
+ * have to figure out twitter's newer oauth thing...
+ * a simpler username/password combo doesn't work these days
+ *
     // only INSERT valid data
     // check if new user is following @lastminute plans
     if (empty($errors)) {
@@ -102,6 +107,8 @@ if (isset($_POST["user"]) && isset($_POST["pass"]) && isset($_POST["pass2"]) ) {
         }
 
     }
+ */
+
     if (empty($errors)) {
         // prepare SQL
         $dbh = new PDO("sqlite:lmp.db");
